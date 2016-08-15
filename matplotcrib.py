@@ -1,28 +1,34 @@
 
 # coding: utf-8
 
-# In[1]:
+# # Matplotlib cribsheet
 
-get_ipython().magic('matplotlib inline')
+# In[1]:
 
 import numpy as np
 import pandas as pd
-import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
-# Full colours list: http://matplotlib.org/mpl_examples/color/named_colors.hires.png
-# Linestyles shown here: http://matplotlib.org/api/lines_api.html#matplotlib.lines.Line2D.set_linestyle
+get_ipython().magic('matplotlib inline')
 
-n = 50
 
-x = np.random.rand(n)
-y = 5*x + np.random.randn(n)
-z = [chr(i) for i in np.random.randint(97, 97+9, n)]
+# Some useful links:
+# * Full colours list: http://matplotlib.org/mpl_examples/color/named_colors.hires.png
+# * Linestyles shown here: http://matplotlib.org/api/lines_api.html#matplotlib.lines.Line2D.set_linestyle
+
+# In[2]:
+
+# Generate some data to use
+n = 50  # number of data points
+
+x = np.random.rand(n)  # random x co-ordinates
+y = 5*x + np.random.randn(n)  # y as a function of x with some added noise
+z = [chr(i) for i in np.random.randint(97, 97+9, n)]  # sample text labels
 
 coords = pd.DataFrame({'x': x, 'y': y, 'z': z})
 
 
-# In[2]:
+# In[3]:
 
 # Simple scatter plot
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -47,7 +53,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left() 
 
 
-# In[3]:
+# In[4]:
 
 # Detailed scatter plot
 fig, ax = plt.subplots(figsize=(14, 10))
@@ -58,7 +64,7 @@ fig.tight_layout(pad=2)
 for i, txt in enumerate(z):
     ax.annotate(txt, (x[i], y[i]), va="bottom", ha="center")
     
-# Add trendline (# would using statsmodels be preferable?)
+# Add linear trendline (# would using statsmodels be preferable?)
 m, c = np.polyfit(x, y, 1)
 ax.plot(x, m*x+c)
 
@@ -72,7 +78,7 @@ ax.set_ylabel('y', fontsize=16, color='dimgray')
 ax.text(0, 4.5, 'My note', fontsize=14, color='blue') 
 
 # Add gridlines
-#ax.grid(True, which='major', color='dimgray', linestyle='dotted') 
+ax.grid(True, which='major', color='dimgray', linestyle='dotted') 
 
 # Change axes colour
 ax.spines["bottom"].set_color('dimgray')
@@ -89,7 +95,7 @@ ax.set_xlim([-0.2, 1.2])
 ax.set_ylim([-2, 6.5])
 
 
-# In[4]:
+# In[5]:
 
 # Bar plot
 
@@ -123,7 +129,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()  
 
 
-# In[5]:
+# In[6]:
 
 agg_coords = coords.groupby(z).agg('sum') # sort data for plotting
 
