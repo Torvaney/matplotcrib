@@ -95,9 +95,9 @@ ax.set_xlim([-0.2, 1.2])
 ax.set_ylim([-2, 6.5])
 
 
-# In[9]:
+# In[5]:
 
-# Simple scatter plot
+# histogram
 fig, ax = plt.subplots(figsize=(8, 6))
 
 ax.hist(x - y, bins=25, normed=True, 
@@ -121,7 +121,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left() 
 
 
-# In[7]:
+# In[6]:
 
 # Bar plot
 
@@ -155,7 +155,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()  
 
 
-# In[8]:
+# In[7]:
 
 agg_coords = coords.groupby(z).agg('sum') # sort data for plotting
 
