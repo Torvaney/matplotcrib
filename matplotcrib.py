@@ -19,7 +19,7 @@ get_ipython().magic('matplotlib inline')
 # In[2]:
 
 # Generate some data to use
-n = 50  # number of data points
+n = 500  # number of data points
 
 x = np.random.rand(n)  # random x co-ordinates
 y = 5*x + np.random.randn(n)  # y as a function of x with some added noise
@@ -56,7 +56,7 @@ ax.get_yaxis().tick_left()
 # In[4]:
 
 # Detailed scatter plot
-fig, ax = plt.subplots(figsize=(14, 10))
+fig, ax = plt.subplots(figsize=(10, 5))
 ax.scatter(x, y, alpha=0.5, color='orchid', s = 100)
 fig.tight_layout(pad=2)
 
@@ -95,7 +95,33 @@ ax.set_xlim([-0.2, 1.2])
 ax.set_ylim([-2, 6.5])
 
 
-# In[5]:
+# In[9]:
+
+# Simple scatter plot
+fig, ax = plt.subplots(figsize=(8, 6))
+
+ax.hist(x - y, bins=25, normed=True, 
+        color='cadetblue', edgecolor='None') 
+
+# Add title
+fig.suptitle('title', fontsize=16, color='dimgray')
+# Add axis labels
+ax.set_xlabel('x', fontsize=16, color='dimgray')
+ax.set_ylabel('y', fontsize=16, color='dimgray')
+
+# Change axes colour
+ax.spines["bottom"].set_color('dimgray')
+ax.spines["left"].set_color('dimgray')
+ax.tick_params(colors='dimgray')
+# Remove top and bottom spines
+ax.spines["top"].set_visible(False)  
+ax.spines["right"].set_visible(False)
+# Remove extra ticks
+ax.get_xaxis().tick_bottom()  
+ax.get_yaxis().tick_left() 
+
+
+# In[7]:
 
 # Bar plot
 
@@ -129,7 +155,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()  
 
 
-# In[6]:
+# In[8]:
 
 agg_coords = coords.groupby(z).agg('sum') # sort data for plotting
 
@@ -156,8 +182,8 @@ for i in range(num_plots):
     bar_yx = sub_agg_coords['x']
     bar_yy = sub_agg_coords['y']
         
-    ax.bar(bar_x, bar_yx, bar_width, color='orchid', edgecolor='none', label='hello')
-    ax.bar(bar_x + bar_width, bar_yy, bar_width, color='tomato', edgecolor='none', label='goodbye')
+    ax.bar(bar_x, bar_yx, bar_width, color='orchid', edgecolor='none', label='orchid')
+    ax.bar(bar_x + bar_width, bar_yy, bar_width, color='tomato', edgecolor='none', label='tomato')
 
     ax.set_title(z_i, color='dimgray')
     
@@ -181,9 +207,4 @@ for i in range(num_plots):
     ax.set_ylim([0, 40])
     
     ax.legend(loc='upper left', frameon=False)
-
-
-# In[ ]:
-
-
 
