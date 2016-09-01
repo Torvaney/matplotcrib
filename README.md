@@ -2,5 +2,5 @@
 Crib sheet(s) for matplotlib
 
 todo
-* add histogram
-* clean up stylesheet
+* ggplot comparison
+* clean up stylesheet (abandon?)
