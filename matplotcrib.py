@@ -22,10 +22,8 @@ get_ipython().magic('matplotlib inline')
 n = 500  # number of data points
 
 x = np.random.rand(n)  # random x co-ordinates
-y = 5*x + np.random.randn(n)  # y as a function of x with some added noise
+y = 5 * x + np.random.randn(n)  # y as a function of x with some added noise
 z = [chr(i) for i in np.random.randint(97, 97+9, n)]  # sample text labels
-
-coords = pd.DataFrame({'x': x, 'y': y, 'z': z})
 
 
 # In[3]:
@@ -50,7 +48,7 @@ ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
 # Remove extra ticks
 ax.get_xaxis().tick_bottom()  
-ax.get_yaxis().tick_left() 
+ax.get_yaxis().tick_left()
 
 
 # In[4]:
@@ -64,7 +62,7 @@ fig.tight_layout(pad=2)
 for i, txt in enumerate(z):
     ax.annotate(txt, (x[i], y[i]), va="bottom", ha="center")
     
-# Add linear trendline (# would using statsmodels be preferable?)
+# Add linear trendline
 m, c = np.polyfit(x, y, 1)
 ax.plot(x, m*x+c)
 
@@ -118,7 +116,7 @@ ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
 # Remove extra ticks
 ax.get_xaxis().tick_bottom()  
-ax.get_yaxis().tick_left() 
+ax.get_yaxis().tick_left()
 
 
 # In[6]:
@@ -152,12 +150,12 @@ ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
 # Remove extra ticks
 ax.get_xaxis().tick_bottom()  
-ax.get_yaxis().tick_left()  
+ax.get_yaxis().tick_left()
 
 
 # In[7]:
 
-agg_coords = coords.groupby(z).agg('sum') # sort data for plotting
+agg_coords = coords.groupby(z).agg('sum')  # sort data for plotting
 
 # Small multiples
 
