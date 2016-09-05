@@ -171,9 +171,7 @@ fig_height = 6
 fig = plt.figure(figsize=(fig_width, fig_height))
 axes = [plt.subplot(nrows, ncols, i) for i in range(1, num_plots+1)]
 
-for i in range(num_plots):
-
-    ax = axes[i]
+for i, ax in enumerate(axes):
 
     z_i = agg_coords.index[i]
     sub_agg_coords = agg_coords[agg_coords.index == z_i]
