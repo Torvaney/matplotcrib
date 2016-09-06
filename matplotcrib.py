@@ -5,8 +5,6 @@
 
 # In[1]:
 
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 
 get_ipython().magic('matplotlib inline')
@@ -31,7 +29,6 @@ z = [chr(i) for i in np.random.randint(97, 97+9, n)]  # sample text labels
 # Simple scatter plot
 fig, ax = plt.subplots(figsize=(8, 6))
 ax.scatter(x, y, alpha=1, color='black', s=10)
-fig.tight_layout(pad=2)
 
 # Add title
 fig.suptitle('title', fontsize=16, color='dimgray')
@@ -132,6 +129,7 @@ bar_yx = agg_coords['x']
 bar_yy = agg_coords['y']
 
 fig, ax = plt.subplots(figsize=(8, 5))
+
 ax.bar(bar_x, bar_yx, bar_width, color='orchid', edgecolor='none')
 ax.bar(bar_x + bar_width, bar_yy, bar_width, color='tomato', edgecolor='none')
 
