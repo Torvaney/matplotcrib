@@ -1,6 +1,5 @@
 # matplotcrib
-Crib sheet(s) for matplotlib
+Crib sheet(s) for matplotlib (and others)
 
 todo
 * ggplot comparison
-* clean up stylesheet (abandon?)
