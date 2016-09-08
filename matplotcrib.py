@@ -5,6 +5,8 @@
 
 # In[1]:
 
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 get_ipython().magic('matplotlib inline')
@@ -14,7 +16,7 @@ get_ipython().magic('matplotlib inline')
 # * Full colours list: http://matplotlib.org/mpl_examples/color/named_colors.hires.png
 # * Linestyles shown here: http://matplotlib.org/api/lines_api.html#matplotlib.lines.Line2D.set_linestyle
 
-# In[2]:
+# In[8]:
 
 # Generate some data to use
 n = 500  # number of data points
@@ -22,6 +24,14 @@ n = 500  # number of data points
 x = np.random.rand(n)  # random x co-ordinates
 y = 5 * x + np.random.randn(n)  # y as a function of x with some added noise
 z = [chr(i) for i in np.random.randint(97, 97+9, n)]  # sample text labels
+
+coords = pd.DataFrame({
+        'x': x,
+        'y': y,
+        'z': z
+    })
+
+coords.head()
 
 
 # In[3]:
@@ -151,7 +161,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()
 
 
-# In[7]:
+# In[12]:
 
 agg_coords = coords.groupby(z).agg('sum')  # sort data for plotting
 
@@ -167,6 +177,8 @@ fig_height = 6
 fig = plt.figure(figsize=(fig_width, fig_height))
 axes = [plt.subplot(nrows, ncols, i) for i in range(1, num_plots+1)]
 
+fig.tight_layout()
+
 for i, ax in enumerate(axes):
 
     z_i = agg_coords.index[i]
@@ -181,9 +193,9 @@ for i, ax in enumerate(axes):
 
     ax.set_title(z_i, color='dimgray')
     
-    if (i % ncols) == 0:
+    if (i % nrows) == 0:
         ax.set_ylabel('y axis', fontsize=16, color='dimgray')
-    if (i // ncols) == (nrows-1):
+    if (i // nrows) == (nrows - 1):
         ax.set_xlabel('x axis', fontsize=16, color='dimgray')
     
     # Change axes colour
@@ -201,4 +213,9 @@ for i, ax in enumerate(axes):
     ax.set_ylim([0, 40])
     
     ax.legend(loc='upper left', frameon=False)
+
+
+# In[ ]:
+
+
 
