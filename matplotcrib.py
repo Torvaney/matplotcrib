@@ -16,7 +16,7 @@ get_ipython().magic('matplotlib inline')
 # * Full colours list: http://matplotlib.org/mpl_examples/color/named_colors.hires.png
 # * Linestyles shown here: http://matplotlib.org/api/lines_api.html#matplotlib.lines.Line2D.set_linestyle
 
-# In[8]:
+# In[2]:
 
 # Generate some data to use
 n = 500  # number of data points
@@ -40,8 +40,11 @@ coords.head()
 fig, ax = plt.subplots(figsize=(8, 6))
 ax.scatter(x, y, alpha=1, color='black', s=10)
 
-# Add title
-fig.suptitle('title', fontsize=16, color='dimgray')
+# Add title (left aligned)
+fig.suptitle('Title', x=0.16, fontsize=18, color='k')
+# ... and subtitle (also left aligned)
+ax.set_title('subtitle', loc='left', fontsize=14, color='dimgray')
+
 # Add axis labels
 ax.set_xlabel('x', fontsize=16, color='dimgray')
 ax.set_ylabel('y', fontsize=16, color='dimgray')
@@ -73,8 +76,6 @@ for i, txt in enumerate(z):
 m, c = np.polyfit(x, y, 1)
 ax.plot(x, m*x+c)
 
-# Add title
-fig.suptitle('title', fontsize=16, color='dimgray')
 # Add axis labels
 ax.set_xlabel('x', fontsize=16, color='dimgray')
 ax.set_ylabel('y', fontsize=16, color='dimgray')
@@ -161,7 +162,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()
 
 
-# In[12]:
+# In[7]:
 
 agg_coords = coords.groupby(z).agg('sum')  # sort data for plotting
 
