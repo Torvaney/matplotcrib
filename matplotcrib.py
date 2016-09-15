@@ -41,7 +41,7 @@ fig, ax = plt.subplots(figsize=(8, 6))
 ax.scatter(x, y, alpha=1, color='black', s=10)
 
 # Add title (left aligned)
-fig.suptitle('Title', x=0.16, fontsize=18, color='k')
+fig.suptitle('Title', ha='left', x=0.125, fontsize=18, color='k')
 # ... and subtitle (also left aligned)
 ax.set_title('subtitle', loc='left', fontsize=14, color='dimgray')
 
@@ -65,7 +65,7 @@ ax.set_axis_bgcolor('snow')
 fig.set_facecolor('snow')
 
 
-# In[4]:
+# In[ ]:
 
 # Detailed scatter plot
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -105,7 +105,7 @@ ax.set_xlim([-0.2, 1.2])
 _ = ax.set_ylim([-2, 6.5])
 
 
-# In[5]:
+# In[ ]:
 
 # histogram
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -131,7 +131,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()
 
 
-# In[6]:
+# In[ ]:
 
 # Bar plot
 
@@ -166,7 +166,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()
 
 
-# In[7]:
+# In[ ]:
 
 agg_coords = coords.groupby(z).agg('sum')  # sort data for plotting
 
