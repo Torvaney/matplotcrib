@@ -65,7 +65,61 @@ ax.set_axis_bgcolor('snow')
 fig.set_facecolor('snow')
 
 
-# In[ ]:
+# In[4]:
+
+# Categorical scatter plot
+
+# Set categorical x and y
+y_cat = coords.z
+y_lookup = dict(zip(y_cat.unique(), np.arange(1, len(y_cat.unique())+1)))
+y_num = [y_lookup[i] for i in y_cat]
+
+x_cat = coords.x
+
+# Plot
+
+fig, ax = plt.subplots(figsize=(8, 6))
+
+ax.scatter(x_cat, y_num, alpha=0.5, color='black', s=20)
+
+# Add title
+fig.suptitle('Title', ha='left', x=0.125, fontsize=18, color='k')
+# ... and subtitle
+ax.set_title('subtitle', loc='left', fontsize=14, color='dimgray')
+
+# Add axis labels
+ax.set_xlabel('x', fontsize=16, color='dimgray')
+
+ax.set_yticks(list(y_lookup.values()))
+ax.set_yticklabels(list(y_lookup.keys()))
+
+# Change axes colour
+ax.spines["bottom"].set_color('dimgray')
+ax.spines["left"].set_color('dimgray')
+ax.tick_params(colors='dimgray')
+
+# Remove top and bottom spines
+ax.spines["top"].set_visible(False)  
+ax.spines["right"].set_visible(False)
+ax.spines["left"].set_visible(False)
+
+# Remove extra ticks
+ax.get_xaxis().tick_bottom()  
+plt.tick_params(
+    axis='y',          # changes apply to the x-axis
+    which='both',      # both major and minor ticks are affected
+    left='on',         # ticks along the bottom edge are off
+    right='off'        # ticks along the top edge are off
+)
+
+ax.yaxis.grid(True, which='major', color='dimgray', linestyle='dotted') 
+
+# Set background colour
+ax.set_axis_bgcolor('snow')
+fig.set_facecolor('snow')
+
+
+# In[5]:
 
 # Detailed scatter plot
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -105,7 +159,7 @@ ax.set_xlim([-0.2, 1.2])
 _ = ax.set_ylim([-2, 6.5])
 
 
-# In[ ]:
+# In[6]:
 
 # histogram
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -131,7 +185,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()
 
 
-# In[ ]:
+# In[7]:
 
 # Bar plot
 
@@ -166,7 +220,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()
 
 
-# In[ ]:
+# In[8]:
 
 agg_coords = coords.groupby(z).agg('sum')  # sort data for plotting
 
