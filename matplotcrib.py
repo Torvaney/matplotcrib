@@ -105,7 +105,7 @@ ax.spines["left"].set_visible(False)
 
 # Remove extra ticks
 ax.get_xaxis().tick_bottom()  
-plt.tick_params(
+ax.tick_params(
     axis='y',          # changes apply to the x-axis
     which='both',      # both major and minor ticks are affected
     left='on',         # ticks along the bottom edge are off
@@ -185,7 +185,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()
 
 
-# In[7]:
+# In[ ]:
 
 # Bar plot
 
@@ -220,7 +220,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()
 
 
-# In[8]:
+# In[ ]:
 
 agg_coords = coords.groupby(z).agg('sum')  # sort data for plotting
 
