@@ -23,7 +23,7 @@ n = 500  # number of data points
 
 x = np.random.rand(n)  # random x co-ordinates
 y = 5 * x + np.random.randn(n)  # y as a function of x with some added noise
-z = [chr(i) for i in np.random.randint(97, 97+9, n)]  # sample text labels
+z = [chr(i) for i in np.random.randint(97, 97+8, n)]  # sample text labels
 
 coords = pd.DataFrame({
         'x': x,
@@ -114,6 +114,8 @@ ax.tick_params(
 
 ax.yaxis.grid(True, which='major', color='dimgray', linestyle='dotted') 
 
+ax.set_ylim([min(y_num) - 1, max(y_num) + 1])
+
 # Set background colour
 ax.set_axis_bgcolor('snow')
 fig.set_facecolor('snow')
@@ -185,7 +187,7 @@ ax.get_xaxis().tick_bottom()
 ax.get_yaxis().tick_left()
 
 
-# In[ ]:
+# In[7]:
 
 # Bar plot
 
@@ -226,8 +228,8 @@ agg_coords = coords.groupby(z).agg('sum')  # sort data for plotting
 
 # Small multiples
 
-nrows = 3
-ncols = 3
+ncols = 4
+nrows = 2
 num_plots = nrows * ncols  # number of subplots
 
 fig_width = 12
@@ -252,9 +254,9 @@ for i, ax in enumerate(axes):
 
     ax.set_title(z_i, color='dimgray')
     
-    if (i % nrows) == 0:
+    if (i % ncols) == 0:
         ax.set_ylabel('y axis', fontsize=16, color='dimgray')
-    if (i // nrows) == (nrows - 1):
+    if (i // ncols) == (nrows - 1):
         ax.set_xlabel('x axis', fontsize=16, color='dimgray')
     
     # Change axes colour
