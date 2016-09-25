@@ -55,7 +55,6 @@ def apply_style_discrete(ax, lookup, categorical):
     # Remove top and bottom spines
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.spines["left"].set_visible(False)
 
     # Remove extra ticks
     if categorical == 'x':
@@ -189,9 +188,31 @@ class Plot:
 
         return self
 
-    def ref_line(self, slope=None, intercept=None, **kwargs):
+    def ref_line(self, slope=None, intercept=None, invert=False, **kwargs):
+        if not invert:
+            xline = [min(self.data[self.aes['x']]), max(self.data[self.aes['x']])]
+            yline = [i * slope + intercept for i in xline]
+        else:
+            yline = [min(self.data[self.aes['y']]), max(self.data[self.aes['y']])]
+            xline = [i * slope + intercept for i in yline]
+
+        for ax in self.axes:
+            ax.plot(xline, yline, **kwargs)
+
+        return self
+
+    def hline(self, intercept=0, **kwargs):
+        yline = [min(self.data[self.aes['y']]), max(self.data[self.aes['y']])]
+        xline = [intercept, intercept]
+
+        for ax in self.axes:
+            ax.plot(xline, yline, **kwargs)
+
+        return self
+
+    def vline(self, intercept=0, **kwargs):
         xline = [min(self.data[self.aes['x']]), max(self.data[self.aes['x']])]
-        yline = [i * slope + intercept for i in xline]
+        yline = [intercept, intercept]
 
         for ax in self.axes:
             ax.plot(xline, yline, **kwargs)
