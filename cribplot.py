@@ -1,4 +1,8 @@
-# The main plotting class
+import matplotlib.pyplot as plt
+import numpy as np
+
+# NOTES
+# Need to think about how flexible vs just perosnal use?
 
 
 # Define some helper functions (should probably go into class as static methods tbh)
@@ -88,12 +92,19 @@ def apply_style_blank(ax):
     ax.axis('off')
 
 
-class CribPlot:
+class Plot:
     def __init__(self, data, aes=None, **kwargs):
         self.data = data
         self.aes = aes
         self.fig = plt.figure(**kwargs)
         self.axes = None
+        self.aes = {
+            'x': 'x',
+            'y': 'y',
+            'by': 'by'
+        }
+
+        self.fig.set_facecolor('snow')
 
     def aesthetics(self, x=None, y=None, by=None, **kwargs):
         if by is None:
@@ -109,11 +120,10 @@ class CribPlot:
 
         axes = [plt.subplot(nrows, ncols, i) for i in range(1, number_of_plots + 1)]
         self.axes = axes
-        self.aes = {
-            'x': x,
-            'y': y,
-            'by': by
-        }
+
+        self.aes['x'] = x
+        self.aes['y'] = y
+        self.aes['by'] = by
 
         for k, v in kwargs.items():
             self.aes[k] = v
@@ -122,6 +132,14 @@ class CribPlot:
 
     def points(self, categorical=None, aes=None, **kwargs):
         categories = sorted(self.data[self.aes['by']].unique())
+
+        # Fix awful americanisms
+        if 'colour' in kwargs.keys():
+            kwargs['color'] = kwargs['colour']
+            kwargs.pop('colour', 0)
+        if 'edgecolour' in kwargs.keys():
+            kwargs['edgecolor'] = kwargs['edgecolour']
+            kwargs.pop('edgecolour', 0)
 
         for i, ax in enumerate(self.axes):
             if i < len(categories):
@@ -150,7 +168,7 @@ class CribPlot:
             else:
                 apply_style_blank(ax)
 
-            return self
+        return self
 
     def histogram(self, aes=None, **kwargs):
         categories = sorted(self.data[self.aes['by']].unique())
@@ -170,3 +188,34 @@ class CribPlot:
                 apply_style_blank(ax)
 
         return self
+
+    def ref_line(self, slope=None, intercept=None, **kwargs):
+        xline = [min(self.data[self.aes['x']]), max(self.data[self.aes['x']])]
+        yline = [i * slope + intercept for i in xline]
+
+        for ax in self.axes:
+            ax.plot(xline, yline, **kwargs)
+
+        return self
+
+    def trendline(self, **kwargs):
+        # edit to allow any polynomial
+        categories = sorted(self.data[self.aes['by']].unique())
+
+        for i, ax in enumerate(self.axes):
+            subcat = categories[i]
+            plot_data = self.data.loc[lambda df: df[self.aes['by']] == subcat]
+
+            xdata = plot_data[self.aes['x']]
+            ydata = plot_data[self.aes['y']]
+            m, c = np.polyfit(xdata, ydata, 1)
+
+            xline = [min(plot_data[self.aes['x']]), max(plot_data[self.aes['x']])]
+            yline = [m * x + c for x in xline]
+
+            ax.plot(xline, yline, **kwargs)
+
+        return self
+
+    def title(self, title=None, **kwargs):
+        self.fig.suptitle(title, **kwargs)
